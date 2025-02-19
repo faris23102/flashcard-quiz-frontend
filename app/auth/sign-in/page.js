@@ -1,13 +1,11 @@
 'use client';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
-export const fetchCache = 'force-no-store';
+export const dynamic = 'force-dynamic'; // Force client-only rendering
 
 import dynamicImport from 'next/dynamic';
 import React, { Suspense } from 'react';
 
-// Dynamically import SignInForm with SSR disabled.
+// Dynamically import the SignInForm component with SSR disabled.
 const DynamicSignInForm = dynamicImport(() => import('./SignInForm'), { ssr: false });
 
 export default function SignInPage() {
