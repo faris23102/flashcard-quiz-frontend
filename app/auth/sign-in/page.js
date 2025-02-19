@@ -1,10 +1,10 @@
 // app/auth/sign-in/page.js
 'use client';
-
 export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
+import React, { Suspense, useState } from 'react';
 import { signIn } from "next-auth/react";
-import { useState } from "react";
 import { Box, Button, TextField, Typography, Container } from "@mui/material";
 import { useSearchParams } from "next/navigation";
 
@@ -20,33 +20,35 @@ export default function SignIn() {
   };
 
   return (
-    <Container maxWidth="sm">
-      <Box textAlign="center" sx={{ mt: 8 }}>
-        <Typography variant="h4" gutterBottom>
-          Sign In
-        </Typography>
-        <form onSubmit={handleSubmit}>
-          <TextField
-            label="Email"
-            type="email"
-            fullWidth
-            margin="normal"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <TextField
-            label="Password"
-            type="password"
-            fullWidth
-            margin="normal"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <Button type="submit" variant="contained" fullWidth sx={{ mt: 2 }}>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Container maxWidth="sm">
+        <Box textAlign="center" sx={{ mt: 8 }}>
+          <Typography variant="h4" gutterBottom>
             Sign In
-          </Button>
-        </form>
-      </Box>
-    </Container>
+          </Typography>
+          <form onSubmit={handleSubmit}>
+            <TextField
+              label="Email"
+              type="email"
+              fullWidth
+              margin="normal"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <TextField
+              label="Password"
+              type="password"
+              fullWidth
+              margin="normal"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <Button type="submit" variant="contained" fullWidth sx={{ mt: 2 }}>
+              Sign In
+            </Button>
+          </form>
+        </Box>
+      </Container>
+    </Suspense>
   );
 }
