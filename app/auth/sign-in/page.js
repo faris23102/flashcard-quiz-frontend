@@ -1,7 +1,6 @@
 // app/auth/sign-in/page.js
 'use client';
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export const dynamic = 'force-dynamic'; // Force dynamic (client-only) rendering
 
 import React, { Suspense, useState } from 'react';
 import { signIn } from "next-auth/react";
