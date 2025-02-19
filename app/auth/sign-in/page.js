@@ -1,9 +1,10 @@
-import dynamic from 'next/dynamic';
-import React from 'react';
+'use client';
 
-// Dynamically import SignInForm with SSR disabled.
-const DynamicSignInForm = dynamic(() => import('./SignInForm'), { ssr: false });
+export const dynamic = 'force-dynamic';
+
+import React from 'react';
+import SignInForm from './SignInForm';
 
 export default function SignInPage() {
-  return <DynamicSignInForm />;
+  return <SignInForm />;
 }

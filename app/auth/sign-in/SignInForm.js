@@ -1,15 +1,23 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { signIn } from 'next-auth/react';
 import { Box, Button, TextField, Typography, Container } from '@mui/material';
-import { useSearchParams } from 'next/navigation';
 
 export default function SignInForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get('callbackUrl') || '/';
+  // We'll derive callbackUrl from the browser's URL, but only on the client.
+  const [callbackUrl, setCallbackUrl] = useState('/');
+
+  useEffect(() => {
+    // This code runs only in the browser.
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const cb = params.get('callbackUrl') || '/';
+      setCallbackUrl(cb);
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
